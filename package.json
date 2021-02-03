@@ -1,0 +1,66 @@
+{
+    "name": "@1nationgfx/gunclear-api",
+    "version": "0.1.0",
+    "description": "",
+    "author": {
+        "name": "Sergio Leon",
+        "email": "serge@1nationgfx.com"
+    },
+    "scripts": {
+        "start": "node dist/app-express.js",
+        "prebuild": "rimraf dist && rimraf artifacts/*",
+        "build": "tsc && cpx './{package.json,yarn.lock}' ./dist",
+        "prefull": "yarn build",
+        "preupd": "yarn build",
+        "preupd:dev": "yarn build",
+        "upd": "cd dist && zip -r dist.zip ./* && aws lambda update-function-code --function-name poc-gunclear-api --zip-file fileb://dist.zip",
+        "upd:dev": "cd dist && zip -r dist.zip ./* && aws lambda update-function-code --function-name gunclear_api_dev --zip-file fileb://dist.zip"
+    },
+    "dependencies": {
+        "apollo-server": "^2.19.0",
+        "apollo-server-lambda": "^2.19.0",
+        "graphql": "^15.4.0",
+        "knex": "^0.21.12",
+        "pdf-fill-form": "^5.0.1",
+        "pdfkit": "^0.11.0",
+        "pg": "^8.5.1",
+        "reflect-metadata": "^0.1.13",
+        "sharp": "^0.27.0"
+    },
+    "devDependencies": {
+        "@types/pdf-fill-form": "^5.0.0",
+        "@types/pdfkit": "^0.10.6",
+        "@types/sharp": "^0.27.1",
+        "apollo": "^2.31.2",
+        "apollo-server-express": "^2.19.0",
+        "body-parser": "^1.19.0",
+        "claudia": "^5.12.0",
+        "cpx": "^1.5.0",
+        "express": "^4.17.1",
+        "graphql-tools": "^7.0.2",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "rimraf": "^3.0.2",
+        "ts-jest": "25.2.0",
+        "ts-loader": "^6.2.1",
+        "ts-node": "^8.6.0",
+        "typescript": "^4.1.2"
+    },
+    "optionalDependencies": {
+        "aws-sdk": "^2.814.0"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
+        "rootDir": "src",
+        "testRegex": ".spec.ts$",
+        "transform": {
+            "^.+\\.(t|j)s$": "ts-jest"
+        },
+        "coverageDirectory": "../coverage",
+        "testEnvironment": "node"
+    }
+}
